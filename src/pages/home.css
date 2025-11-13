@@ -165,36 +165,37 @@ main {
   }
 
   .country-section__card {
-    padding: 32px 20px;
-    gap: 28px;
+    padding: 28px 16px;
+    gap: 22px;
   }
 
   .country-section__flag-nav {
-    gap: 12px;
+    gap: 10px;
   }
 
   .country-section__flag-inner {
-    max-width: 240px;
+    max-width: 200px;
+    padding: 10px;
   }
 
   .country-section__tabs {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    padding: 12px;
-    gap: 12px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 10px;
+    gap: 10px;
   }
 
   .country-tab {
-    padding: 10px 8px;
-    gap: 6px;
+    padding: 8px 6px;
+    gap: 4px;
   }
 
   .country-tab__flag {
-    width: 36px;
-    height: 26px;
+    width: 32px;
+    height: 22px;
   }
 
   .country-section__panel {
-    padding: 30px 22px;
+    padding: 24px 18px;
   }
 
   .country-section__actions {
@@ -203,7 +204,7 @@ main {
 
   .country-section__btn {
     text-align: center;
-    padding: 18px 18px;
+    padding: 16px 16px;
   }
 
   .country-section__btn-icon {
@@ -212,24 +213,115 @@ main {
     justify-self: center;
   }
 
-  .team-section {
+  .why-section {
     padding: 0 18px;
   }
 
-  .team-section__card {
-    margin: 0;
+  .why-section__fixed {
+    padding: 24px 18px;
   }
 
-  .stats-section {
-    padding: 72px 18px;
+  .why-highlight__icon {
+    width: 52px;
+    height: 52px;
+    padding: 4px;
   }
 
-  .reviews-section {
-    padding: 0 18px;
+  .why-section__carousel {
+    gap: 16px;
+  }
+
+  .why-card {
+    min-width: 220px;
+  }
+
+  .why-card__content {
+    padding: 22px;
+  }
+
+  .why-section__cta {
+    align-self: center;
   }
 
   .reviews-carousel {
     padding: 26px 20px;
+  }
+
+  .review-card {
+    padding-right: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  main {
+    gap: 80px;
+  }
+
+  .hero {
+    margin-top: 60px;
+  }
+
+  .country-section__flag-nav {
+    gap: 14px;
+  }
+
+  .country-section__flag-inner {
+    max-width: 260px;
+  }
+
+  .country-section__tabs {
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  .country-section__panel {
+    padding: 34px 26px;
+    align-items: center;
+    text-align: center;
+  }
+
+  .country-section__description {
+    text-align: center;
+  }
+
+  .country-section__actions {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .country-section__btn {
+    justify-items: center;
+    text-align: center;
+    padding: 18px 20px;
+  }
+
+  .country-section__btn-icon {
+    position: static;
+    transform: none;
+  }
+
+  .why-section__fixed {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .why-highlights {
+    flex-direction: column;
+  }
+
+  .why-highlight {
+    flex: none;
+  }
+
+  .why-section__carousel {
+    gap: 20px;
+  }
+
+  .reviews-summary {
+    flex-direction: column;
+  }
+
+  .reviews-carousel {
+    padding: 30px 24px;
   }
 }
 
@@ -559,12 +651,13 @@ main {
 }
 
 .why-highlight__icon {
-  width: 52px;
-  height: 52px;
-  border-radius: 18px;
+  width: 60px;
+  height: 60px;
+  border-radius: 20px;
   background: #eef1ff;
   display: grid;
   place-items: center;
+  padding: 6px;
 }
 
 .why-highlight__label {
@@ -648,103 +741,6 @@ main {
 .why-section__cta:hover {
   transform: translateY(-2px);
   box-shadow: 0 12px 28px rgba(29, 42, 105, 0.3);
-}
-
-.team-section {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px;
-  background: #ffffff;
-  border-radius: 40px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 32px;
-  align-items: center;
-  box-shadow: 0 16px 36px rgba(13, 27, 92, 0.15);
-  padding-top: 50px;
-  padding-bottom: 50px;
-}
-
-.team-section__content {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  padding: 0 24px;
-}
-
-.team-section__content h2 {
-  margin: 0;
-  font-size: 2.2rem;
-}
-
-.team-section__content p {
-  margin: 0;
-  color: rgba(29, 42, 105, 0.65);
-  line-height: 1.6;
-}
-
-.team-section__avatars {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-top: 10px;
-}
-
-.team-section__avatars img {
-  width: 54px;
-  height: 54px;
-  border-radius: 50%;
-  object-fit: cover;
-  box-shadow: 0 10px 22px rgba(13, 27, 92, 0.2);
-}
-
-.team-section__count {
-  width: 54px;
-  height: 54px;
-  border-radius: 50%;
-  background: #1d2a69;
-  color: #ffffff;
-  display: grid;
-  place-items: center;
-  font-weight: 600;
-}
-
-.team-section__card {
-  background: linear-gradient(180deg, #fdf2e9 0%, #fbd7ff 100%);
-  border-radius: 32px;
-  padding: 32px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin: 0 24px;
-}
-
-.team-section__card h3 {
-  margin: 0;
-  font-size: 1.4rem;
-}
-
-.team-section__card p {
-  margin: 0;
-  color: rgba(29, 42, 105, 0.75);
-  line-height: 1.6;
-}
-
-.team-section__card button {
-  align-self: flex-start;
-  border: none;
-  background: #1d2a69;
-  color: #ffffff;
-  border-radius: 999px;
-  padding: 12px 24px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.team-section__card button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 24px rgba(29, 42, 105, 0.25);
 }
 
 .stats-section {
@@ -834,9 +830,19 @@ main {
   display: flex;
   flex-direction: column;
   gap: 32px;
+  overflow: hidden;
+}
+
+.reviews-carousel__track {
+  display: flex;
+  transition: transform 0.6s ease;
+  width: 100%;
 }
 
 .review-card {
+  min-width: 100%;
+  padding-right: 16px;
+  box-sizing: border-box;
   display: grid;
   gap: 18px;
 }
@@ -882,181 +888,18 @@ main {
   gap: 12px;
 }
 
-.dot {
+.reviews-carousel__dots .dot {
   width: 12px;
   height: 12px;
   border-radius: 50%;
   background: rgba(29, 42, 105, 0.2);
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
 }
 
-.dot--active {
+.reviews-carousel__dots .dot--active {
   background: #1d2a69;
-}
-
-@media (max-width: 768px) {
-  main {
-    gap: 80px;
-  }
-
-  .hero {
-    margin-top: 60px;
-  }
-
-  .country-section__flag-nav {
-    gap: 14px;
-  }
-
-  .country-section__flag-inner {
-    max-width: 260px;
-  }
-
-  .country-section__tabs {
-    max-width: 520px;
-    margin: 0 auto;
-  }
-
-  .country-section__panel {
-    padding: 34px 26px;
-    align-items: center;
-    text-align: center;
-  }
-
-  .country-section__description {
-    text-align: center;
-  }
-
-  .country-section__actions {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .country-section__btn {
-    justify-items: center;
-    text-align: center;
-    padding: 18px 20px;
-  }
-
-  .country-section__btn-icon {
-    position: static;
-    transform: none;
-  }
-
-  .why-section__fixed {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .why-highlights {
-    flex-direction: column;
-  }
-
-  .why-highlight {
-    flex: none;
-  }
-
-  .why-section__carousel {
-    gap: 20px;
-  }
-
-  .team-section {
-    grid-template-columns: 1fr;
-    padding: 40px 24px;
-  }
-
-  .team-section__card {
-    margin: 0;
-  }
-
-  .reviews-summary {
-    flex-direction: column;
-  }
-
-  .reviews-carousel {
-    padding: 30px 24px;
-  }
-
-  .team-section {
-    gap: 20px;
-  }
-}
-
-@media (max-width: 640px) {
-  .country-section__card {
-    padding: 28px 16px;
-    gap: 22px;
-  }
-
-  .country-section__flag-nav {
-    gap: 10px;
-  }
-
-  .country-section__flag-inner {
-    max-width: 200px;
-    padding: 10px;
-  }
-
-  .country-section__tabs {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    padding: 10px;
-    gap: 10px;
-  }
-
-  .country-tab {
-    padding: 8px 6px;
-    gap: 4px;
-  }
-
-  .country-tab__flag {
-    width: 32px;
-    height: 22px;
-  }
-
-  .country-section__panel {
-    padding: 24px 18px;
-  }
-
-  .country-section__actions {
-    grid-template-columns: 1fr;
-  }
-
-  .country-section__btn {
-    text-align: center;
-    padding: 16px 16px;
-  }
-
-  .country-section__btn-icon {
-    position: static;
-    transform: none;
-  }
-}
-
-@media (max-width: 640px) {
-  .why-section {
-    padding: 0 18px;
-  }
-
-  .why-section__fixed {
-    padding: 24px 18px;
-  }
-
-  .why-highlight__icon {
-    width: 44px;
-    height: 44px;
-  }
-
-  .why-section__carousel {
-    gap: 16px;
-  }
-
-  .why-card {
-    min-width: 220px;
-  }
-
-  .why-card__content {
-    padding: 22px;
-  }
-
-  .why-section__cta {
-    align-self: center;
-  }
+  transform: scale(1.1);
 }
 

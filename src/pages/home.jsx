@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import './home.css';
@@ -72,17 +72,17 @@ const serviceOptions = [
 ];
 
 const stats = [
-  { value: '70M+', label: 'COD Delivered' },
-  { value: '30K+', label: 'Sellers Registered' },
-  { value: '17+', label: 'Countries Represented' },
-  { value: '24/7', label: 'Support Availability' },
+  { id: 'cod', target: 70, suffix: 'M+', label: 'COD Delivered', duration: 1800 },
+  { id: 'sellers', target: 30, suffix: 'K+', label: 'Sellers Registered', duration: 1800 },
+  { id: 'countries', target: 5, suffix: '', label: 'Countries Represented', duration: 1800 },
+  { id: 'support', target: 24, suffix: '/7', label: 'Support Availability', duration: 1800 },
 ];
 
 const whyHighlights = [
   { id: 'coverage', icon: 'globe', label: '5 countries covered' },
   { id: 'delivery', icon: 'truck', label: '80% Delivery Success' },
   { id: 'products', icon: 'tag', label: '10K+ Products Listed' },
-  { id: 'payment', icon: 'calendar', label: '5-Day Payment Guarantee' },
+  { id: 'payment', icon: 'calendar', label: 'Guaranteed Payments' },
 ];
 
 const whySolutions = [
@@ -114,7 +114,7 @@ const whySolutions = [
     id: 'automation',
     title: 'Fulfilment Automation',
     description: 'Integrate warehouses and couriers with one-click automations to reduce manual work.',
-    image: 'https://images.unsplash.com/photo-1618005198919-d3d4b5a92eee?auto=format&fit=crop&w=900&q=80',
+    image: 'https://images.unsplash.com/photo-1527430253228-e93688616381?auto=format&fit=crop&w=900&q=80',
   },
   {
     id: 'analytics',
@@ -126,14 +126,14 @@ const whySolutions = [
 
 const highlightIcons = {
   globe: (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="12" cy="12" r="9" stroke="#1d2a69" strokeWidth="1.8" />
       <path d="M12 3C9.5 6.5 9.5 17.5 12 21C14.5 17.5 14.5 6.5 12 3Z" stroke="#1d2a69" strokeWidth="1.4" />
       <path d="M3 12H21" stroke="#1d2a69" strokeWidth="1.4" />
     </svg>
   ),
   truck: (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M3 6.5H14V15.5H3V6.5Z" stroke="#1d2a69" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
       <path d="M14 9H18L21 12V15.5H14V9Z" stroke="#1d2a69" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
       <circle cx="7" cy="16" r="1.8" stroke="#1d2a69" strokeWidth="1.4" />
@@ -141,28 +141,78 @@ const highlightIcons = {
     </svg>
   ),
   tag: (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M11 4H5V10L14 19L20 13L11 4Z" stroke="#1d2a69" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
       <circle cx="7.5" cy="7.5" r="1" fill="#1d2a69" />
     </svg>
   ),
   calendar: (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="4" y="5" width="16" height="15" rx="2" stroke="#1d2a69" strokeWidth="1.6" />
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="4" y="5" width="16" height="15" rx="2" stroke="#1d2a69" strokeWidth="1.6" fill="none" />
       <path d="M4 9H20" stroke="#1d2a69" strokeWidth="1.6" />
       <path d="M8 3V7" stroke="#1d2a69" strokeWidth="1.6" strokeLinecap="round" />
       <path d="M16 3V7" stroke="#1d2a69" strokeWidth="1.6" strokeLinecap="round" />
-      <rect x="8" y="12" width="2" height="2" rx="0.5" fill="#1d2a69" />
-      <rect x="12" y="12" width="2" height="2" rx="0.5" fill="#1d2a69" />
-      <rect x="16" y="12" width="2" height="2" rx="0.5" fill="#1d2a69" />
+      <path d="M9 14L11.2 16.2L15 12.8" stroke="#1d2a69" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   ),
 };
+
+const reviews = [
+  {
+    id: 1,
+    name: 'Mark Smith',
+    date: '19th September, 2025',
+    avatar: 'https://i.pravatar.cc/80?img=12',
+    rating: '★★★★☆',
+    content:
+      'Started our dropshipping business with Zambeel and never looked back. The product quality is exceptional and customer support is available 24/7. Amazing experience!',
+  },
+  {
+    id: 2,
+    name: 'Aisha Khan',
+    date: '2nd October, 2025',
+    avatar: 'https://i.pravatar.cc/80?img=15',
+    rating: '★★★★★',
+    content:
+      'The onboarding process was seamless. We scaled to three new countries within months thanks to Zambeel’s logistics and marketing teams.',
+  },
+  {
+    id: 3,
+    name: 'Carlos Lima',
+    date: '28th August, 2025',
+    avatar: 'https://i.pravatar.cc/80?img=33',
+    rating: '★★★★☆',
+    content:
+      'Inventory syncing and automated fulfilment saved our operations team hours every week. Highly recommend for fast-growing stores.',
+  },
+  {
+    id: 4,
+    name: 'Emily Chen',
+    date: '7th July, 2025',
+    avatar: 'https://i.pravatar.cc/80?img=48',
+    rating: '★★★★★',
+    content:
+      'Customer service goes above and beyond. Their sourcing recommendations helped us launch a new product line with record margins.',
+  },
+  {
+    id: 5,
+    name: 'Muhammad Ali',
+    date: '12th June, 2025',
+    avatar: 'https://i.pravatar.cc/80?img=64',
+    rating: '★★★★☆',
+    content:
+      'Reliable COD settlements and analytics dashboards gave us the confidence to scale our ad spend across the region.',
+  },
+];
 
 const Home = () => {
   const [activeCountryIndex, setActiveCountryIndex] = useState(0);
   const currentCountry = countryConfigs[activeCountryIndex];
   const whyCarouselRef = useRef(null);
+  const [activeReviewIndex, setActiveReviewIndex] = useState(0);
+  const [animatedStats, setAnimatedStats] = useState(stats.map(() => 0));
+  const [statsAnimated, setStatsAnimated] = useState(false);
+  const statsSectionRef = useRef(null);
 
   const handlePrevCountry = () => {
     setActiveCountryIndex((prev) => (prev - 1 + countryConfigs.length) % countryConfigs.length);
@@ -184,6 +234,58 @@ const Home = () => {
       whyCarouselRef.current.scrollBy({ left: whyCarouselRef.current.offsetWidth, behavior: 'smooth' });
     }
   };
+
+  const startStatsAnimation = () => {
+    stats.forEach((stat, index) => {
+      const startTime = performance.now();
+      const animate = (currentTime) => {
+        const progress = Math.min((currentTime - startTime) / stat.duration, 1);
+        const value = stat.target * progress;
+        setAnimatedStats((prev) => {
+          const next = [...prev];
+          next[index] = value;
+          return next;
+        });
+        if (progress < 1) {
+          requestAnimationFrame(animate);
+        }
+      };
+      requestAnimationFrame(animate);
+    });
+  };
+
+  useEffect(() => {
+    if (statsAnimated) {
+      return undefined;
+    }
+
+    const section = statsSectionRef.current;
+    if (!section) {
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          startStatsAnimation();
+          setStatsAnimated(true);
+        }
+      },
+      { threshold: 0.35 }
+    );
+
+    observer.observe(section);
+
+    return () => observer.disconnect();
+  }, [statsAnimated]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveReviewIndex((prev) => (prev + 1) % reviews.length);
+    }, 6000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="home">
@@ -321,36 +423,19 @@ const Home = () => {
           </button>
         </section>
 
-        <section id="team" className="team-section">
-          <div className="team-section__content">
-            <h2>Our Team</h2>
-            <p>
-              A collective of ecommerce strategists, logistics specialists, and product mentors dedicated to helping you launch and scale without boundaries.
-            </p>
-            <div className="team-section__avatars">
-              <img src="https://i.pravatar.cc/90?img=32" alt="Team member 1" />
-              <img src="https://i.pravatar.cc/90?img=47" alt="Team member 2" />
-              <img src="https://i.pravatar.cc/90?img=55" alt="Team member 3" />
-              <div className="team-section__count">+20</div>
-            </div>
-          </div>
-          <div className="team-section__card">
-            <h3>Meet the experts behind your success</h3>
-            <p>Personalized onboarding, growth audits, and around-the-clock support to unlock global opportunities.</p>
-            <button type="button">Book a consultation →</button>
-          </div>
-        </section>
-
-        <section className="stats-section">
+        <section className="stats-section" ref={statsSectionRef}>
           <h2>Our Network, Active & Rising</h2>
           <div className="stats-grid">
-            {stats.map((item) => (
-              <div key={item.value} className="stat-card">
-                <span className="stat-card__value">{item.value}</span>
-                <span className="stat-card__label">{item.label || item.suffix}</span>
-                {item.suffix && !item.label && <span className="stat-card__suffix">{item.suffix}</span>}
-              </div>
-            ))}
+            {stats.map((item, index) => {
+              const displayValue = Math.round(animatedStats[index]);
+              const formattedValue = `${displayValue.toLocaleString()}${item.suffix}`;
+              return (
+                <div key={item.id} className="stat-card">
+                  <span className="stat-card__value">{formattedValue}</span>
+                  <span className="stat-card__label">{item.label}</span>
+                </div>
+              );
+            })}
           </div>
         </section>
 
@@ -363,24 +448,34 @@ const Home = () => {
               <p className="reviews-summary__count">(281 reviews)</p>
             </div>
           </div>
-          <div className="reviews-carousel">
-            <article className="review-card">
-              <div className="review-card__header">
-                <img src="https://i.pravatar.cc/80?img=12" alt="Mark Smith" />
-                <div>
-                  <h3>Mark Smith</h3>
-                  <span>19th September, 2025</span>
-                </div>
-              </div>
-              <div className="review-card__rating">★★★★☆</div>
-              <p>
-                “Started our dropshipping business with Zambeel and never looked back. The product quality is exceptional and customer support is available 24/7. Amazing experience!”
-              </p>
-            </article>
+          <div className="reviews-carousel" role="region" aria-label="Customer testimonials">
+            <div className="reviews-carousel__track" style={{ transform: `translateX(-${activeReviewIndex * 100}%)` }}>
+              {reviews.map((review) => (
+                <article key={review.id} className="review-card">
+                  <div className="review-card__header">
+                    <img src={review.avatar} alt={review.name} />
+                    <div>
+                      <h3>{review.name}</h3>
+                      <span>{review.date}</span>
+                    </div>
+                  </div>
+                  <div className="review-card__rating" aria-label={`Rated ${review.rating.length} out of 5`}>
+                    {review.rating}
+                  </div>
+                  <p>{review.content}</p>
+                </article>
+              ))}
+            </div>
             <div className="reviews-carousel__dots">
-              <span className="dot dot--active" aria-hidden="true"></span>
-              <span className="dot" aria-hidden="true"></span>
-              <span className="dot" aria-hidden="true"></span>
+              {reviews.map((review, index) => (
+                <button
+                  key={review.id}
+                  type="button"
+                  className={`dot ${index === activeReviewIndex ? 'dot--active' : ''}`}
+                  onClick={() => setActiveReviewIndex(index)}
+                  aria-label={`Show review ${index + 1}`}
+                />
+              ))}
             </div>
           </div>
         </section>
