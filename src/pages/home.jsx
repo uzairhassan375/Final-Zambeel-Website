@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import './home.css';
+import heroLogo from '../assets/zambeel.png';
 
 const services = [
   {
     title: 'Reliable storage and fast delivery',
-    description: 'Manage inventory and fulfillment effortlessly with Zambeel’s logistics network.',
+    description: 'Manage inventory effortlessly with Zambeel’s logistics network.',
     cta: 'Zambeel 3PL',
   },
   {
@@ -21,7 +22,54 @@ const services = [
   },
 ];
 
-const countries = ['UAE', 'KSA', 'QTR', 'KWT', 'PAK'];
+const countryConfigs = [
+  {
+    code: 'UAE',
+    label: 'UAE',
+    name: 'United Arab Emirates',
+    flag: 'https://flagcdn.com/w320/ae.png',
+    description: 'Scale across the Emirates with nationwide fulfilment, prime delivery windows, and ready-to-launch dropshipping.',
+    services: ['3pl', '360', 'dropshipping'],
+  },
+  {
+    code: 'KSA',
+    label: 'KSA',
+    name: 'Kingdom of Saudi Arabia',
+    flag: 'https://flagcdn.com/w320/sa.png',
+    description: 'Tap into the GCC’s largest market with localized operations, concierge onboarding, and full product sourcing support.',
+    services: ['3pl', '360', 'dropshipping'],
+  },
+  {
+    code: 'QTR',
+    label: 'Qatar',
+    name: 'Qatar',
+    flag: 'https://flagcdn.com/w320/qa.png',
+    description: 'Serve Qatar with cross-border fulfilment and brand acceleration packages tailored for rapid scaling.',
+    services: ['3pl', '360'],
+  },
+  {
+    code: 'KWT',
+    label: 'Kuwait',
+    name: 'Kuwait',
+    flag: 'https://flagcdn.com/w320/kw.png',
+    description: 'Deliver to Kuwait with seamless customs handling and dedicated growth advisors for established brands.',
+    services: ['3pl', '360'],
+  },
+  {
+    code: 'PAK',
+    label: 'Pakistan',
+    name: 'Pakistan',
+    flag: 'https://flagcdn.com/w320/pk.png',
+    description: 'Launch from Pakistan with direct access to warehousing and sourcing support for global expansion.',
+    services: ['3pl', '360'],
+  },
+];
+
+const serviceOptions = [
+  { key: '3pl', label: 'Zambeel 3PL', variant: 'primary' },
+  { key: '360', label: 'Zambeel 360', variant: 'ghost' },
+  { key: 'dropshipping', label: 'Zambeel Dropshipping', variant: 'ghost' },
+];
 
 const features = [
   { icon: '🌍', title: '5 countries covered', description: 'Operate cross-border effortlessly with localized support teams.' },
@@ -38,59 +86,113 @@ const stats = [
 ];
 
 const Home = () => {
+  const [activeCountryIndex, setActiveCountryIndex] = useState(0);
+  const currentCountry = countryConfigs[activeCountryIndex];
+
+  const handlePrevCountry = () => {
+    setActiveCountryIndex((prev) => (prev - 1 + countryConfigs.length) % countryConfigs.length);
+  };
+
+  const handleNextCountry = () => {
+    setActiveCountryIndex((prev) => (prev + 1) % countryConfigs.length);
+  };
+
+  const handleSelectCountry = (code) => {
+    const index = countryConfigs.findIndex((country) => country.code === code);
+    if (index !== -1) {
+      setActiveCountryIndex(index);
+    }
+  };
+
   return (
     <div className="home">
       <Header />
       <main id="home">
         <section id="services" className="hero">
           <div className="hero__content">
+            <img src={heroLogo} alt="Zambeel" className="hero__logo" />
             <h1 className="hero__title">
               One platform. <span className="hero__highlight">Three</span> powerful ways to grow your business.
             </h1>
-            <p className="hero__subtitle">
-              Choose the path that fits your goals—launch fast, build a brand, or scale operations with ease.
-            </p>
             <div className="hero__cards">
               {services.map((service) => (
                 <article key={service.cta} className="service-card">
                   <h3>{service.title}</h3>
                   <p>{service.description}</p>
-                  <button type="button">{service.cta} →</button>
+                  <button type="button" className="service-card__cta">
+                    {service.cta} <span aria-hidden="true">→</span>
+                  </button>
                 </article>
               ))}
             </div>
           </div>
-          <div className="hero__illustration" aria-hidden="true">
-            <div className="hero__badge">Grow Faster</div>
-          </div>
         </section>
 
         <section id="locations" className="country-section">
-          <div className="country-section__carousel">
-            <button className="carousel__control" aria-label="Previous country">‹</button>
-            <div className="carousel__flag">
-              <img src="https://flagcdn.com/w320/qa.png" alt="Qatar" />
-            </div>
-            <button className="carousel__control" aria-label="Next country">›</button>
-          </div>
-          <div className="country-section__details">
-            <h2>Where do you want to sell?</h2>
-            <span className="country-section__country">Qatar</span>
-            <p>
-              Selling from Pakistan gives you full access to all our services. Learn how Zambeel can help you scale by picking the right solution for your business.
-            </p>
-            <div className="country-section__actions">
-              <button type="button" className="country-section__btn country-section__btn--primary">Zambeel 3PL</button>
-              <button type="button" className="country-section__btn country-section__btn--ghost">Zambeel 360</button>
+          <div className="country-section__card">
+            <div className="country-section__main">
+              <div className="country-section__flag">
+                <div className="country-section__flag-nav">
+                  <button
+                    className="carousel__control"
+                    type="button"
+                    aria-label="Previous country"
+                    onClick={handlePrevCountry}
+                  >
+                    ‹
+                  </button>
+                  <div className="country-section__flag-inner">
+                    <img src={currentCountry.flag} alt={currentCountry.name} />
+                  </div>
+                  <button
+                    className="carousel__control"
+                    type="button"
+                    aria-label="Next country"
+                    onClick={handleNextCountry}
+                  >
+                    ›
+                  </button>
+                </div>
+              </div>
+              <div className="country-section__panel">
+                <div className="country-section__header">
+                  <h2>Where do you want to sell?</h2>
+                  <span className="country-section__country">{currentCountry.label}</span>
+                </div>
+                <p className="country-section__description">{currentCountry.description}</p>
+                <div className="country-section__actions">
+                  {serviceOptions
+                    .filter((service) => currentCountry.services.includes(service.key))
+                    .map((service) => (
+                      <button
+                        key={service.key}
+                        type="button"
+                        className={`country-section__btn country-section__btn--${service.variant}`}
+                      >
+                        <span className="country-section__btn-label">{service.label}</span>
+                        <span className="country-section__btn-subtext">
+                          {service.key === '3pl' && 'Fast, Reliable 3PL Solutions'}
+                          {service.key === '360' && 'Launch Your Own Product'}
+                          {service.key === 'dropshipping' && 'Zero Inventory, Global Reach'}
+                        </span>
+                        <span className="country-section__btn-icon" aria-hidden="true">→</span>
+                      </button>
+                    ))}
+                </div>
+              </div>
             </div>
             <div className="country-section__tabs">
-              {countries.map((country) => (
+              {countryConfigs.map((country, index) => (
                 <button
-                  key={country}
+                  key={country.code}
                   type="button"
-                  className={`country-tab ${country === 'QTR' ? 'country-tab--active' : ''}`}
+                  onClick={() => handleSelectCountry(country.code)}
+                  className={`country-tab ${index === activeCountryIndex ? 'country-tab--active' : ''}`}
                 >
-                  {country}
+                  <span className="country-tab__flag">
+                    <img src={country.flag} alt="" aria-hidden="true" />
+                  </span>
+                  <span className="country-tab__label">{country.label}</span>
                 </button>
               ))}
             </div>
