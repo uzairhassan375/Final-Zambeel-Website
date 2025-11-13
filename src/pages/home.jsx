@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import './home.css';
@@ -71,13 +71,6 @@ const serviceOptions = [
   { key: 'dropshipping', label: 'Zambeel Dropshipping', variant: 'ghost' },
 ];
 
-const features = [
-  { icon: '🌍', title: '5 countries covered', description: 'Operate cross-border effortlessly with localized support teams.' },
-  { icon: '🚚', title: '80%+ Delivery Success', description: 'Optimized logistics to reach your customers faster than ever.' },
-  { icon: '🛒', title: '10K+ Products Listed', description: 'Find trending, high-margin products ready for your storefront.' },
-  { icon: '💳', title: '5-Day Payment Guarantee', description: 'Sell with confidence knowing cash cycles are fast and reliable.' },
-];
-
 const stats = [
   { value: '70M+', label: 'COD Delivered' },
   { value: '30K+', label: 'Sellers Registered' },
@@ -85,9 +78,91 @@ const stats = [
   { value: '24/7', label: 'Support Availability' },
 ];
 
+const whyHighlights = [
+  { id: 'coverage', icon: 'globe', label: '5 countries covered' },
+  { id: 'delivery', icon: 'truck', label: '80% Delivery Success' },
+  { id: 'products', icon: 'tag', label: '10K+ Products Listed' },
+  { id: 'payment', icon: 'calendar', label: '5-Day Payment Guarantee' },
+];
+
+const whySolutions = [
+  {
+    id: 'dropshipping',
+    title: 'Zambeel Dropshipping',
+    description: 'Start your ecommerce business from anywhere in the world without business registration.',
+    image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=900&q=80',
+  },
+  {
+    id: 'cod',
+    title: 'Cash on Delivery',
+    description: 'Scale your business confidently with optimized COD fulfilment and reconciliation.',
+    image: 'https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=900&q=80',
+  },
+  {
+    id: 'ai',
+    title: 'AI Enabled Ecommerce',
+    description: 'Use our AI tools to match customers with trending products in real-time.',
+    image: 'https://images.unsplash.com/photo-1555255707-c07966088b7b?auto=format&fit=crop&w=900&q=80',
+  },
+  {
+    id: 'sourcing',
+    title: 'Global Product Sourcing',
+    description: 'Unlock vetted suppliers across regions with full quality assurance and logistics support.',
+    image: 'https://images.unsplash.com/photo-1503389152951-9f343605f61e?auto=format&fit=crop&w=900&q=80',
+  },
+  {
+    id: 'automation',
+    title: 'Fulfilment Automation',
+    description: 'Integrate warehouses and couriers with one-click automations to reduce manual work.',
+    image: 'https://images.unsplash.com/photo-1618005198919-d3d4b5a92eee?auto=format&fit=crop&w=900&q=80',
+  },
+  {
+    id: 'analytics',
+    title: 'Growth Analytics',
+    description: 'Track conversion, retention, and inventory health with dashboards built for operators.',
+    image: 'https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=900&q=80',
+  },
+];
+
+const highlightIcons = {
+  globe: (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="12" r="9" stroke="#1d2a69" strokeWidth="1.8" />
+      <path d="M12 3C9.5 6.5 9.5 17.5 12 21C14.5 17.5 14.5 6.5 12 3Z" stroke="#1d2a69" strokeWidth="1.4" />
+      <path d="M3 12H21" stroke="#1d2a69" strokeWidth="1.4" />
+    </svg>
+  ),
+  truck: (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M3 6.5H14V15.5H3V6.5Z" stroke="#1d2a69" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M14 9H18L21 12V15.5H14V9Z" stroke="#1d2a69" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+      <circle cx="7" cy="16" r="1.8" stroke="#1d2a69" strokeWidth="1.4" />
+      <circle cx="17" cy="16" r="1.8" stroke="#1d2a69" strokeWidth="1.4" />
+    </svg>
+  ),
+  tag: (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M11 4H5V10L14 19L20 13L11 4Z" stroke="#1d2a69" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+      <circle cx="7.5" cy="7.5" r="1" fill="#1d2a69" />
+    </svg>
+  ),
+  calendar: (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="4" y="5" width="16" height="15" rx="2" stroke="#1d2a69" strokeWidth="1.6" />
+      <path d="M4 9H20" stroke="#1d2a69" strokeWidth="1.6" />
+      <path d="M8 3V7" stroke="#1d2a69" strokeWidth="1.6" strokeLinecap="round" />
+      <path d="M16 3V7" stroke="#1d2a69" strokeWidth="1.6" strokeLinecap="round" />
+      <rect x="8" y="12" width="2" height="2" rx="0.5" fill="#1d2a69" />
+      <rect x="12" y="12" width="2" height="2" rx="0.5" fill="#1d2a69" />
+      <rect x="16" y="12" width="2" height="2" rx="0.5" fill="#1d2a69" />
+    </svg>
+  ),
+};
+
 const Home = () => {
   const [activeCountryIndex, setActiveCountryIndex] = useState(0);
   const currentCountry = countryConfigs[activeCountryIndex];
+  const whyCarouselRef = useRef(null);
 
   const handlePrevCountry = () => {
     setActiveCountryIndex((prev) => (prev - 1 + countryConfigs.length) % countryConfigs.length);
@@ -101,6 +176,12 @@ const Home = () => {
     const index = countryConfigs.findIndex((country) => country.code === code);
     if (index !== -1) {
       setActiveCountryIndex(index);
+    }
+  };
+
+  const handleWhyViewMore = () => {
+    if (whyCarouselRef.current) {
+      whyCarouselRef.current.scrollBy({ left: whyCarouselRef.current.offsetWidth, behavior: 'smooth' });
     }
   };
 
@@ -200,20 +281,44 @@ const Home = () => {
         </section>
 
         <section id="why" className="why-section">
-          <h2>Why Zambeel?</h2>
-          <p className="why-section__intro">
-            Start your ecommerce business from anywhere in the world without business registration.
-          </p>
-          <div className="why-section__grid">
-            {features.map((feature) => (
-              <article key={feature.title} className="why-card">
-                <div className="why-card__icon" aria-hidden="true">{feature.icon}</div>
-                <h3>{feature.title}</h3>
-                <p>{feature.description}</p>
-              </article>
-            ))}
+          <div className="why-section__header">
+            <h2>Why Zambeel?</h2>
+            <p className="why-section__intro">
+              Start your ecommerce business from anywhere in the world without business registration.
+            </p>
           </div>
-          <button type="button" className="why-section__cta">View more →</button>
+          <div className="why-section__body">
+            <div className="why-section__fixed" aria-label="Zambeel benefits">
+              <ul className="why-highlights">
+                {whyHighlights.map((highlight) => (
+                  <li key={highlight.id} className="why-highlight">
+                    <span className="why-highlight__icon" aria-hidden="true">
+                      {highlightIcons[highlight.icon]}
+                    </span>
+                    <span className="why-highlight__label">{highlight.label}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="why-section__carousel" aria-label="Zambeel solutions" ref={whyCarouselRef}>
+              {whySolutions.map((solution) => (
+                <article
+                  key={solution.id}
+                  className="why-card"
+                  style={{ backgroundImage: `url(${solution.image})` }}
+                >
+                  <div className="why-card__overlay" aria-hidden="true" />
+                  <div className="why-card__content">
+                    <h3>{solution.title}</h3>
+                    <p>{solution.description}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+          <button type="button" className="why-section__cta" onClick={handleWhyViewMore}>
+            View more <span aria-hidden="true">→</span>
+          </button>
         </section>
 
         <section id="team" className="team-section">

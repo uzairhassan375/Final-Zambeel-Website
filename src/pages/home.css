@@ -466,16 +466,53 @@ main {
   .country-section__panel {
     padding: 30px 24px;
   }
+
+  .why-section__body {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .why-section__fixed {
+    flex: none;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 18px;
+  }
+
+  .why-highlights {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .why-highlight {
+    flex: 1 1 calc(50% - 16px);
+  }
+
+  .why-section__carousel {
+    padding-bottom: 6px;
+  }
+
+  .why-section__cta {
+    align-self: center;
+  }
 }
 
 .why-section {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 24px;
-  text-align: center;
   display: flex;
   flex-direction: column;
   gap: 32px;
+}
+
+.why-section__header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .why-section h2 {
@@ -485,52 +522,126 @@ main {
 
 .why-section__intro {
   margin: 0 auto;
-  max-width: 640px;
+  max-width: 620px;
   color: rgba(29, 42, 105, 0.7);
 }
 
-.why-section__grid {
+.why-section__body {
+  display: flex;
+  gap: 32px;
+  align-items: stretch;
+}
+
+.why-section__fixed {
+  flex: 0 0 260px;
+  background: #ffffff;
+  border-radius: 28px;
+  box-shadow: 0 22px 60px rgba(18, 33, 94, 0.12);
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.why-highlights {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.why-highlight {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.why-highlight__icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 18px;
+  background: #eef1ff;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  place-items: center;
+}
+
+.why-highlight__label {
+  font-weight: 600;
+  color: #1d2a69;
+}
+
+.why-section__carousel {
+  flex: 1;
+  display: flex;
   gap: 24px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scroll-snap-type: x mandatory;
+}
+
+.why-section__carousel::-webkit-scrollbar {
+  height: 8px;
+}
+
+.why-section__carousel::-webkit-scrollbar-thumb {
+  background: rgba(29, 42, 105, 0.2);
+  border-radius: 999px;
 }
 
 .why-card {
-  background: #ffffff;
-  padding: 28px 22px;
+  min-width: 260px;
   border-radius: 28px;
-  box-shadow: 0 10px 28px rgba(13, 27, 92, 0.12);
+  position: relative;
+  color: #ffffff;
+  overflow: hidden;
+  scroll-snap-align: start;
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  align-items: flex-end;
+  box-shadow: 0 18px 40px rgba(13, 27, 92, 0.18);
+}
+
+.why-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(12, 20, 64, 0.05) 0%, rgba(12, 20, 64, 0.75) 75%);
+}
+
+.why-card__content {
+  position: relative;
+  padding: 28px;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  align-items: center;
 }
 
-.why-card__icon {
-  font-size: 2rem;
-}
-
-.why-card h3 {
+.why-card__content h3 {
   margin: 0;
-  font-size: 1.1rem;
+  font-size: 1.25rem;
 }
 
-.why-card p {
+.why-card__content p {
   margin: 0;
-  color: rgba(29, 42, 105, 0.65);
-  line-height: 1.6;
-  text-align: center;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .why-section__cta {
-  align-self: center;
-  padding: 12px 28px;
+  align-self: flex-end;
+  padding: 12px 26px;
   border-radius: 999px;
   border: none;
   background: #1d2a69;
   color: #ffffff;
   font-weight: 600;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -829,6 +940,23 @@ main {
     transform: none;
   }
 
+  .why-section__fixed {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .why-highlights {
+    flex-direction: column;
+  }
+
+  .why-highlight {
+    flex: none;
+  }
+
+  .why-section__carousel {
+    gap: 20px;
+  }
+
   .team-section {
     grid-template-columns: 1fr;
     padding: 40px 24px;
@@ -898,6 +1026,37 @@ main {
   .country-section__btn-icon {
     position: static;
     transform: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .why-section {
+    padding: 0 18px;
+  }
+
+  .why-section__fixed {
+    padding: 24px 18px;
+  }
+
+  .why-highlight__icon {
+    width: 44px;
+    height: 44px;
+  }
+
+  .why-section__carousel {
+    gap: 16px;
+  }
+
+  .why-card {
+    min-width: 220px;
+  }
+
+  .why-card__content {
+    padding: 22px;
+  }
+
+  .why-section__cta {
+    align-self: center;
   }
 }
 
